@@ -4,20 +4,20 @@
         <a-button type="link" @click="editUser(text)">Edit</a-button>
         <a-button type="link" @click="showUser(text)">Show</a-button>
         <a-button type="link" @click="deleteUser(text)">Delete</a-button>
-        <!-- <ModalUpdateUser :user="selectedUserUpdate" v-if="selectedUserUpdate" :visible="editModalVisible" @cancel="closeEditModal" @close="closeEditModal" @update="updateUser" />
+        <!-- <ModalUpdateUser :user="selectedUserUpdate" v-if="selectedUserUpdate" :visible="editModalVisible" @cancel="closeEditModal" @close="closeEditModal" @update="updateUser" /> -->
         <a-modal
           v-if="selectedUser"
-          :title="`User Information - ID: ${selectedUser.user_id || ''}`"
+          :title="`User Information - ID: ${selectedUser.leave_id || ''}`"
           v-model="visible"
           @cancel="closeModal"
           @ok="closeModal"
         >
-          <p>Name: {{ selectedUser.name }}</p>
-          <p>Username: {{ selectedUser.username }}</p>
-          <p>Email: {{ selectedUser.email }}</p>
-          <p>Phone: {{ selectedUser.phone }}</p>
-          <p>Address: {{ selectedUser.address }}</p>
-        </a-modal> -->
+          <p>User_ID: {{ selectedUser.user_id }}</p>
+          <p>Start Date: {{ selectedUser.start_date}}</p>
+          <p>End Date: {{ selectedUser.end_date }}</p>
+          <p>Reason: {{ selectedUser.leave_reason }}</p>
+          <p>Status: {{ selectedUser.status }}</p>
+        </a-modal>
       </template>
       <template v-slot:status="text">
             <span :class="getStatusColor(text)">{{ text }}</span>
@@ -84,6 +84,8 @@
             scopedSlots: { customRender: "action" },
           },
         ],
+        visible: false,
+        selectedUser: null,
       };
     },
     methods: {
@@ -91,6 +93,8 @@
         console.log(user);
       },
       showUser(user) {
+        this.visible = true;
+        this.selectedUser = user;
         console.log(user);
       },
       deleteUser(user) {
@@ -117,6 +121,10 @@
           },
         });
       },
+      closeModal() {
+      this.visible = false;
+      this.selectedUser = null;
+    },
       getStatusColor(status) {
     switch (status) {
       case "pending":
