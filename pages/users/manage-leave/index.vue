@@ -1,22 +1,22 @@
 <template>
     <div>
-      <h1 style="margin-left: 32px; margin-top: 32px;">List Users</h1>
+      <h1 style="margin-left: 32px; margin-top: 32px;">Leave List</h1>
       <div class="button-container">
-        <a-button type="primary" class="create-user-button"><nuxt-link to="/users/create">Create User</nuxt-link></a-button>
+        <modal-create-leave/>
     </div>
-      <user-table :users="users" />
+      <leave-table :users="users" />
     </div>
   </template>
   
   <script>
-import UserTable from '../../components/UserTable.vue';
+import LeaveTable from '../../../components/LeaveTable.vue';
+import ModalCreateLeave from '../../../components/modal-manage-leave/ModalCreateLeave.vue';
 
 
   
   export default {
-    components: {
-    'user-table': UserTable,
-},
+  components: { LeaveTable, ModalCreateLeave },
+  
     data() {
       return {
         users: [],
@@ -24,7 +24,7 @@ import UserTable from '../../components/UserTable.vue';
     },
     async asyncData({ $http }) {
       try {
-        const response = await $http.$get('https://86x07hia9j.execute-api.us-east-1.amazonaws.com/Dev/list_users');
+        const response = await $http.$get('https://86x07hia9j.execute-api.us-east-1.amazonaws.com/Dev/leave/all_leave');
         // console.log(response);
         return { users: response.Items };
       } catch (error) {
