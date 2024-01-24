@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     filteredUsers() {
-      if (!this.selectedStatus || this.selectedStatus === 'all') {
+      if (!this.selectedStatus) {
         return this.users;
       }
       return this.users.filter(user => user.status === this.selectedStatus);

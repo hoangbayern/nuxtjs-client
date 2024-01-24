@@ -37,7 +37,6 @@
 
 <script>
 import { Table, Button, Modal, message } from "ant-design-vue";
-import moment from 'moment';
 
 export default {
   components: {
@@ -100,12 +99,6 @@ export default {
   },
   methods: {
     editUser(user) {
-      if (user.start_date) {
-        user.start_date = moment(user.start_date, 'DD-MM-YYYY').format('YYYY-MM-DD');
-      }
-      if (user.end_date) {
-        user.end_date = moment(user.end_date, 'DD-MM-YYYY').format('YYYY-MM-DD');
-      }
       this.selectedLeave = user;
       this.updateModalVisible = true;
       console.log(user);
@@ -147,38 +140,13 @@ export default {
       this.updateModalVisible = false;
       this.selectedLeave = null;
     },
-    async updateLeave(updatedLeave) {
-      try {
-        
-        updatedLeave.start_date = moment(updatedLeave.start_date).format('DD-MM-YYYY');
-        updatedLeave.end_date = moment(updatedLeave.end_date).format('DD-MM-YYYY');
+    updateLeave(updatedLeave) {
+      // Xử lý sau khi đơn xin nghỉ phép được cập nhật
+      // updatedLeave là đối tượng đã được cập nhật
+      console.log("Updated Leave:", updatedLeave);
 
-        const updateData = {
-          user_id: updatedLeave.user_id,
-          start_date: updatedLeave.start_date,
-          end_date: updatedLeave.end_date,
-          leave_reason: updatedLeave.leave_reason,
-          status: updatedLeave.status,
-          author: updatedLeave.author,
-        }
-
-        const response = await this.$http.$put(
-          "https://86x07hia9j.execute-api.us-east-1.amazonaws.com/Dev/leave/update_leave?leave_id=" + updatedLeave.leave_id,
-          updateData
-        );
-
-        // console.log(response);
-
-        this.closeUpdateModal();
-
-        if (response.message) {
-          message.success(response.message);
-        }
-        location.reload();
-      } catch (error) {
-        console.error("Update Leave Error:", error);
-        message.error("Error updating leave. Please try again.");
-      }
+      // Đóng modal cập nhật
+      this.closeUpdateModal();
     },
     getStatusColor(status) {
       switch (status) {

@@ -4,7 +4,7 @@
     <div class="button-container">
       <modal-create-leave />
       <a-select v-model="selectedStatus" style="width: 120px" @change="searchByStatus">
-        <a-select-option value="all">All</a-select-option>
+        <a-select-option>All</a-select-option>
         <a-select-option value="pending">Pending</a-select-option>
         <a-select-option value="confirmed">Confirmed</a-select-option>
         <a-select-option value="rejected">Rejected</a-select-option>
@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     filteredUsers() {
-      if (!this.selectedStatus || this.selectedStatus === 'all') {
+      if (!this.selectedStatus) {
         return this.users;
       }
       return this.users.filter(user => user.status === this.selectedStatus);

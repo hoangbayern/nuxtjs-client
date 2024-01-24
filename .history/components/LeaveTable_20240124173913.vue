@@ -167,14 +167,13 @@ export default {
           updateData
         );
 
-        // console.log(response);
+        console.log(response);
+
+        // if (response.message) {
+        //   message.success(response.message);
+        // }
 
         this.closeUpdateModal();
-
-        if (response.message) {
-          message.success(response.message);
-        }
-        location.reload();
       } catch (error) {
         console.error("Update Leave Error:", error);
         message.error("Error updating leave. Please try again.");

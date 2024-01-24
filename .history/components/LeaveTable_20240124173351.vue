@@ -158,7 +158,6 @@ export default {
           start_date: updatedLeave.start_date,
           end_date: updatedLeave.end_date,
           leave_reason: updatedLeave.leave_reason,
-          status: updatedLeave.status,
           author: updatedLeave.author,
         }
 
@@ -167,14 +166,14 @@ export default {
           updateData
         );
 
-        // console.log(response);
+        console.log(response);
 
+        // if (response.message) {
+        //   message.success(response.message);
+        // }
+
+        // Đóng modal cập nhật
         this.closeUpdateModal();
-
-        if (response.message) {
-          message.success(response.message);
-        }
-        location.reload();
       } catch (error) {
         console.error("Update Leave Error:", error);
         message.error("Error updating leave. Please try again.");
